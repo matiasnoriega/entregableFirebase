@@ -20,5 +20,14 @@ public class MainActivity extends AppCompatActivity {
         this.recyclerViewObras = (RecyclerView) findViewById(R.id.recyclerView);
 
 
+
+
      }
+
+    public void cargadorDeFragments(android.support.v4.app.Fragment unFragment) {
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_main,unFragment);
+        fragmentTransaction.commit();
+    }
 }

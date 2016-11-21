@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.FragmentViewPagerHome">
+
+    <android.support.design.widget.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimaryDark"
+        app:tabSelectedTextColor="@color/colorAccent"
+        android:id="@+id/tabMenu_home"
+        app:tabGravity="fill"
+        app:tabMode="scrollable"
+        app:tabIndicatorHeight="5dp"/>
+    <android.support.v4.view.ViewPager
+        android:layout_below="@id/tabMenu_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/viewPager_home"
+        />
+
+</RelativeLayout>
