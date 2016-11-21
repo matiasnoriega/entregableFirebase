@@ -17,10 +17,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.recyclerViewObras = (RecyclerView) findViewById(R.id.recyclerView);
-
-
-
+        FragmentViewPagerHome homeFragment = new FragmentViewPagerHome();
+        cargadorDeFragments(homeFragment);
 
      }
 

@@ -11,9 +11,6 @@ import android.view.ViewGroup;
 
 import com.example.dh_mob_tv.entregablefirebase.R;
 
-/**
- * Created by dh-mob-tv on 21/11/16.
- */
 public class FragmentViewPagerHome extends Fragment {
 
     public FragmentViewPagerHome(){

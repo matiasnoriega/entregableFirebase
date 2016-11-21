@@ -20,11 +20,33 @@ public class AdapterViewPagerHome extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return null;
+        return this.list.get(position);
     }
 
     @Override
     public int getCount() {
         return this.list.size();
+    }
+
+    public CharSequence getPageTitle(int position){
+        String title = null;
+        switch (position){
+            case 0:
+                title= "Andy";
+                break;
+            case 1:
+                title= "Michelangelo";
+                break;
+            case 2:
+                title= "Keith Haring";
+                break;
+            case 3:
+                title= "Miro";
+                break;
+            case 4:
+                title= "Polac (El Polaco)";
+                break;
+        }
+        return title;
     }
 }
