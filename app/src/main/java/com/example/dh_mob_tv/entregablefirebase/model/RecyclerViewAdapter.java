@@ -13,12 +13,12 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter {
 
     Context context;
-    List<Obra> listaDeObras;
+    List<Paint> listaDePaints;
     View.OnClickListener listener;
 
-    public RecyclerViewAdapter(Context context, List<Obra> listaDeObras, View.OnClickListener onClickListener) {
+    public RecyclerViewAdapter(Context context, List<Paint> listaDePaints, View.OnClickListener onClickListener) {
         this.context = context;
-        this.listaDeObras = listaDeObras;
+        this.listaDePaints = listaDePaints;
         this.listener = onClickListener;
     }
 
