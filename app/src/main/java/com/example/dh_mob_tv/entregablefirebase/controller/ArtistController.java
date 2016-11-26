@@ -25,7 +25,7 @@ public class ArtistController {
             public void finish(Artist resultado) {
                 resultListener.finish(resultado);
             }
-        });
+        }, context);
 
     }
 }
