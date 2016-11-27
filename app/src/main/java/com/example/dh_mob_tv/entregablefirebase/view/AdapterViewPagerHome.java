@@ -4,6 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.example.dh_mob_tv.entregablefirebase.controller.ArtistController;
+import com.example.dh_mob_tv.entregablefirebase.model.Artist;
+import com.example.dh_mob_tv.entregablefirebase.util.ResultListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +17,22 @@ import java.util.List;
 public class AdapterViewPagerHome extends FragmentStatePagerAdapter {
 
     List<FragmentRecyclerView> list = new ArrayList<FragmentRecyclerView>();
+    List<Artist> artistList = new ArrayList<Artist>();
 
     public AdapterViewPagerHome(FragmentManager fm) {
         super(fm);
+        ArtistController artistController = new ArtistController();
+        artistController.leerFirebaseDelDAO(new ResultListener<List<Artist>>() {
+            @Override
+            public void finish(List<Artist> resultado) {
+                setArtistList(resultado);
+            }
+        });
+
+        for (Artist artist : artistList){
+            list.add(FragmentRecyclerView.creadorDeRecyclerViewFragment(artist));
+        }
+
     }
 
     @Override
@@ -48,5 +65,13 @@ public class AdapterViewPagerHome extends FragmentStatePagerAdapter {
                 break;
         }
         return title;
+    }
+
+    public List<Artist> getArtistList() {
+        return artistList;
+    }
+
+    public void setArtistList(List<Artist> artistList) {
+        this.artistList = artistList;
     }
 }

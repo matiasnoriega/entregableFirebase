@@ -1,10 +1,7 @@
 package com.example.dh_mob_tv.entregablefirebase.controller;
 
-import android.content.Context;
-
 import com.example.dh_mob_tv.entregablefirebase.DAO.ArtistDAO;
 import com.example.dh_mob_tv.entregablefirebase.model.Artist;
-import com.example.dh_mob_tv.entregablefirebase.model.Paint;
 import com.example.dh_mob_tv.entregablefirebase.util.ResultListener;
 
 import java.util.List;
@@ -17,15 +14,14 @@ public class ArtistController {
     public ArtistController() {
     }
 
-    public void obtenerArtistaDelDAO(final ResultListener<Artist> resultListener, Context context){
-
+    public void leerFirebaseDelDAO(final ResultListener<List<Artist>> resultListener){
         ArtistDAO artistDAO = new ArtistDAO();
-        artistDAO.obtenerArtistDeFirebase(new ResultListener<Artist>() {
+        artistDAO.obtenerListArtistDeFirebase(new ResultListener<List<Artist>>() {
             @Override
-            public void finish(Artist resultado) {
+            public void finish(List<Artist> resultado) {
                 resultListener.finish(resultado);
             }
-        }, context);
+        });
 
     }
 }

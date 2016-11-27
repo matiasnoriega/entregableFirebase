@@ -10,14 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dh_mob_tv.entregablefirebase.R;
-import com.example.dh_mob_tv.entregablefirebase.controller.ArtistController;
 import com.example.dh_mob_tv.entregablefirebase.model.Artist;
 import com.example.dh_mob_tv.entregablefirebase.model.Paint;
 import com.example.dh_mob_tv.entregablefirebase.model.RecyclerViewAdapter;
-import com.example.dh_mob_tv.entregablefirebase.util.ResultListener;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,45 +24,36 @@ public class FragmentRecyclerView extends Fragment{
 
     private List<Paint> listAMostrar;
     private RecyclerView recyclerView;
-    private String artista;
+    private Artist artista;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        listAMostrar = new ArrayList<>();
-        Bundle unBundle = getArguments();
-        this.artista = unBundle.getString("artista");
-
         View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
+        Bundle unBundle = getArguments();
+        this.artista = (Artist) unBundle.getSerializable("artista");
+        listAMostrar = artista.getPaintings();
+
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_main);
-        final RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), listAMostrar, new Listener());
 
-        ArtistController artistController = new ArtistController();
-        artistController.obtenerArtistaDelDAO(new ResultListener<Artist>() {
-            @Override
-            public void finish(Artist resultado) {
-                listAMostrar.clear();
-                listAMostrar.addAll(resultado.getPaintings());
-                recyclerViewAdapter.notifyDataSetChanged();
-
-            }
-        }, getContext());
-
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), listAMostrar, new Listener());
         recyclerView.setAdapter(recyclerViewAdapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), GridLayoutManager.DEFAULT_SPAN_COUNT);
         recyclerView.setLayoutManager(gridLayoutManager);
+
         recyclerView.setHasFixedSize(true);
 
         return view;
     }
 
-    public static FragmentRecyclerView creadorDeRecyclerViewFragment(String artista){
+    public static FragmentRecyclerView creadorDeRecyclerViewFragment(Artist artista){
 
         FragmentRecyclerView recyclerViewFragment = new FragmentRecyclerView();
         Bundle bundle = new Bundle();
-        bundle.putString("artista", artista);
+        bundle.putSerializable("artista", (Serializable) artista);
         recyclerViewFragment.setArguments(bundle);
 
         return recyclerViewFragment;
