@@ -16,16 +16,20 @@ import java.util.List;
  */
 public class AdapterViewPagerHome extends FragmentStatePagerAdapter {
 
-    List<FragmentRecyclerView> list = new ArrayList<FragmentRecyclerView>();
-    List<Artist> artistList = new ArrayList<Artist>();
+    List<FragmentRecyclerView> list;
+    List<Artist> artistList;
 
     public AdapterViewPagerHome(FragmentManager fm) {
         super(fm);
+        list = new ArrayList<FragmentRecyclerView>();
+        artistList = new ArrayList<Artist>();
+
         ArtistController artistController = new ArtistController();
         artistController.leerFirebaseDelDAO(new ResultListener<List<Artist>>() {
             @Override
             public void finish(List<Artist> resultado) {
                 setArtistList(resultado);
+                notifyDataSetChanged();
             }
         });
 

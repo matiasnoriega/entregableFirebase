@@ -34,7 +34,7 @@ public class FragmentRecyclerView extends Fragment{
         View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
         Bundle unBundle = getArguments();
         this.artista = (Artist) unBundle.getSerializable("artista");
-        listAMostrar = artista.getPaintings();
+        listAMostrar = artista.getPaints();
 
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_main);

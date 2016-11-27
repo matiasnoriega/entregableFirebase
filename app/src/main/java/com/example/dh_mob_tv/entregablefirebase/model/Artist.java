@@ -8,7 +8,7 @@ import java.util.List;
 public class Artist {
 
     private String name;
-    private List<Paint> paintings;
+    private List<Paint> paints;
 
     public Artist() {
     }
@@ -23,11 +23,11 @@ public class Artist {
         this.name = name;
     }
 
-    public List<Paint> getPaintings() {
-        return paintings;
+    public List<Paint> getPaints() {
+        return paints;
     }
 
-    public void setPaintings(List<Paint> paintings) {
-        this.paintings = paintings;
+    public void setPaints(List<Paint> paintings) {
+        this.paints = paintings;
     }
 }

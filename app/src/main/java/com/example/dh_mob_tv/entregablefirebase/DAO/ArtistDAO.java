@@ -16,9 +16,10 @@ import java.util.List;
 public class ArtistDAO {
 
     public ArtistDAO() {
+
     }
 
-    public void obtenerListArtistDeFirebase(ResultListener<List<Artist>> resultListener){
+    public void obtenerListArtistDeFirebase(ResultListener<List<Artist>> resultListener) {
 
         LeerFirebaseDatabaseAsync leerFirebaseDatabaseAsync = new LeerFirebaseDatabaseAsync(resultListener);
         leerFirebaseDatabaseAsync.execute();
@@ -26,14 +27,18 @@ public class ArtistDAO {
     }
 
 
-   private class LeerFirebaseDatabaseAsync extends AsyncTask<String, Void, List<Artist>>{
+    private class LeerFirebaseDatabaseAsync extends AsyncTask<String, Void, List<Artist>> {
 
         private ResultListener<List<Artist>> resultListener;
         private List<Artist> listADevolver;
 
+        public List<Artist> getListADevolver() {
+            return listADevolver;
+        }
+
         public LeerFirebaseDatabaseAsync(ResultListener<List<Artist>> resultListener) {
             this.resultListener = resultListener;
-            this.listADevolver = new ArrayList<>();
+            this.listADevolver = new ArrayList<Artist>();
         }
 
         @Override
@@ -41,32 +46,29 @@ public class ArtistDAO {
 
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-            try{
+            try {
 
                 databaseReference.child("artists").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot artistSnapshot : dataSnapshot.getChildren()){
-                            listADevolver.add(artistSnapshot.getValue(Artist.class));
+
+                        for (DataSnapshot artistSnapshot : dataSnapshot.getChildren()) {
+                            Artist artist = artistSnapshot.getValue(Artist.class);
+                            getListADevolver().add(artist);
                         }
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
                     }
                 });
 
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            finally {
 
-                return listADevolver;
 
-            }
-
+            return getListADevolver();
 
 
         }
