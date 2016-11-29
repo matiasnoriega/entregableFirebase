@@ -16,7 +16,7 @@ public class ArtistController {
 
     public void leerFirebaseDelDAO(final ResultListener<List<Artist>> resultListener){
         ArtistDAO artistDAO = new ArtistDAO();
-        artistDAO.obtenerListArtistDeFirebase(new ResultListener<List<Artist>>() {
+        artistDAO.obtenerListaArtistasDeFirebase(new ResultListener<List<Artist>>() {
             @Override
             public void finish(List<Artist> resultado) {
                 resultListener.finish(resultado);

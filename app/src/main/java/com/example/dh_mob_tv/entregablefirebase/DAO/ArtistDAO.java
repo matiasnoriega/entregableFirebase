@@ -1,7 +1,5 @@
 package com.example.dh_mob_tv.entregablefirebase.DAO;
 
-import android.os.AsyncTask;
-
 import com.example.dh_mob_tv.entregablefirebase.model.Artist;
 import com.example.dh_mob_tv.entregablefirebase.util.ResultListener;
 import com.google.firebase.database.DataSnapshot;
@@ -19,65 +17,47 @@ public class ArtistDAO {
 
     }
 
-    public void obtenerListArtistDeFirebase(ResultListener<List<Artist>> resultListener) {
+    public void obtenerListaArtistasDeFirebase(final ResultListener<List<Artist>> resultListener){
 
-        LeerFirebaseDatabaseAsync leerFirebaseDatabaseAsync = new LeerFirebaseDatabaseAsync(resultListener);
-        leerFirebaseDatabaseAsync.execute();
-
-    }
-
-
-    private class LeerFirebaseDatabaseAsync extends AsyncTask<String, Void, List<Artist>> {
-
-        private ResultListener<List<Artist>> resultListener;
-        private List<Artist> listADevolver;
-
-        public List<Artist> getListADevolver() {
-            return listADevolver;
-        }
-
-        public LeerFirebaseDatabaseAsync(ResultListener<List<Artist>> resultListener) {
-            this.resultListener = resultListener;
-            this.listADevolver = new ArrayList<Artist>();
-        }
-
-        @Override
-        protected List<Artist> doInBackground(String... strings) {
-
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-
-            try {
-
-                databaseReference.child("artists").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        for (DataSnapshot artistSnapshot : dataSnapshot.getChildren()) {
-                            Artist artist = artistSnapshot.getValue(Artist.class);
-                            getListADevolver().add(artist);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
-
-            } catch (Exception e) {
-                e.printStackTrace();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://entregablefirebase-3ed06.firebaseio.com/");
+        databaseReference.child("artists").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Artist> lista = new ArrayList<Artist>();
+                for (DataSnapshot artistSnapshot : dataSnapshot.getChildren()) {
+                    Artist artist = artistSnapshot.getValue(Artist.class);
+                    lista.add(artist);
+                }
+                resultListener.finish(lista);
             }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-            return getListADevolver();
+            }
+        });
+    }
 
+    public void obtenerListArtistDeFirebase(final ResultListener<List<Artist>> resultListener) {
 
-        }
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = mDatabase.getReference();
 
-        @Override
-        protected void onPostExecute(List<Artist> artists) {
-            this.resultListener.finish(artists);
-        }
+        databaseReference.child("artists").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Artist> lista = new ArrayList<Artist>();
+                for (DataSnapshot artistSnapshot : dataSnapshot.getChildren()) {
+                    Artist artist = artistSnapshot.getValue(Artist.class);
+                    lista.add(artist);
+                }
+                resultListener.finish(lista);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
     }
 }
