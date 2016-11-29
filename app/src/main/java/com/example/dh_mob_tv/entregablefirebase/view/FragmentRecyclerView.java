@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +26,6 @@ public class FragmentRecyclerView extends Fragment{
 
     private List<Paint> listAMostrar;
     private RecyclerView recyclerView;
-    private Artist artista;
 
 
     @Nullable
@@ -33,15 +34,12 @@ public class FragmentRecyclerView extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
         Bundle unBundle = getArguments();
-        this.artista = (Artist) unBundle.getSerializable("artista");
-        listAMostrar = artista.getPaints();
-
-
+        listAMostrar = (List<Paint>) unBundle.getSerializable("pinturas");
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_main);
 
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), listAMostrar, new Listener());
         recyclerView.setAdapter(recyclerViewAdapter);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), GridLayoutManager.DEFAULT_SPAN_COUNT);
+        LinearLayoutManager gridLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         recyclerView.setHasFixedSize(true);
@@ -53,7 +51,7 @@ public class FragmentRecyclerView extends Fragment{
 
         FragmentRecyclerView recyclerViewFragment = new FragmentRecyclerView();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("artista", (Serializable) artista);
+        bundle.putSerializable("pinturas", (Serializable) artista.getPaints());
         recyclerViewFragment.setArguments(bundle);
 
         return recyclerViewFragment;

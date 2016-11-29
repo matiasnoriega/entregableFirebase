@@ -71,7 +71,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         public void cargarPintura(Paint paint) {
 
             FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReferenceFromUrl("gs://entregablefirebase-3ed06.appspot.com");
+            StorageReference storageRef = storage.getReference();
 
             storageRef.child(paint.getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override

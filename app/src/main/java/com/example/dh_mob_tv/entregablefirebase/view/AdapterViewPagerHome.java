@@ -28,14 +28,13 @@ public class AdapterViewPagerHome extends FragmentStatePagerAdapter {
         artistController.leerFirebaseDelDAO(new ResultListener<List<Artist>>() {
             @Override
             public void finish(List<Artist> resultado) {
-                setArtistList(resultado);
+                for (Artist artist : resultado){
+                    list.add(FragmentRecyclerView.creadorDeRecyclerViewFragment(artist));
+                }
                 notifyDataSetChanged();
             }
         });
 
-        for (Artist artist : artistList){
-            list.add(FragmentRecyclerView.creadorDeRecyclerViewFragment(artist));
-        }
 
     }
 
