@@ -3,6 +3,7 @@ package com.example.dh_mob_tv.entregablefirebase.model;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.dh_mob_tv.entregablefirebase.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -57,7 +59,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         return listaDePaints.size();
     }
 
-    public static class PinturaViewHolder extends RecyclerView.ViewHolder{
+    public static class PinturaViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageViewHolder;
 
@@ -66,36 +68,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
             this.imageViewHolder = (ImageView) itemView.findViewById(R.id.imageViewCelda);
         }
 
-        public void cargarPintura(Paint paint){
+        public void cargarPintura(Paint paint) {
 
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReferenceFromUrl("gs://entregablefirebase-3ed06.appspot.com");
-            StorageReference imagesRef = storageRef.child(paint.getImage());
 
-            try{
-
-                final File localFile = File.createTempFile("images", "jpg");
-                imagesRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-                        Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                        imageViewHolder.setImageBitmap(bitmap);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        e.printStackTrace();
-                    }
-                });
-
-            }
-            catch (Exception e){
-                e.printStackTrace();;
-            }
-
+            storageRef.child(paint.getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Glide.with(itemView.getContext()).load(uri).into(imageViewHolder);
+                }
+            });
         }
     }
-
 
 }

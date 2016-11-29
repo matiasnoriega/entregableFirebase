@@ -1,5 +1,7 @@
 package com.example.dh_mob_tv.entregablefirebase.DAO;
 
+import android.net.Uri;
+
 import com.example.dh_mob_tv.entregablefirebase.model.Artist;
 import com.example.dh_mob_tv.entregablefirebase.util.ResultListener;
 import com.google.firebase.database.DataSnapshot;
@@ -17,7 +19,7 @@ public class ArtistDAO {
 
     }
 
-    public void obtenerListaArtistasDeFirebase(final ResultListener<List<Artist>> resultListener){
+    public void obtenerListaArtistasDeFirebase(final ResultListener<List<Artist>> resultListener) {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://entregablefirebase-3ed06.firebaseio.com/");
         databaseReference.child("artists").addValueEventListener(new ValueEventListener() {
@@ -36,28 +38,5 @@ public class ArtistDAO {
 
             }
         });
-    }
-
-    public void obtenerListArtistDeFirebase(final ResultListener<List<Artist>> resultListener) {
-
-        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = mDatabase.getReference();
-
-        databaseReference.child("artists").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Artist> lista = new ArrayList<Artist>();
-                for (DataSnapshot artistSnapshot : dataSnapshot.getChildren()) {
-                    Artist artist = artistSnapshot.getValue(Artist.class);
-                    lista.add(artist);
-                }
-                resultListener.finish(lista);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
     }
 }
