@@ -4,7 +4,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.dh_mob_tv.entregablefirebase.view.FragmentRecyclerView"
     android:id="@+id/recyclerView"
+    android:background="#191f63"
     >
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fondoRV"/>
 
 
     <android.support.v7.widget.RecyclerView

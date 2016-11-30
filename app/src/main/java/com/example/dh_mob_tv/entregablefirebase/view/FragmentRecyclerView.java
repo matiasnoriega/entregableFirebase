@@ -44,7 +44,7 @@ public class FragmentRecyclerView extends Fragment{
         listAMostrar = artista.getPaints();
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_main);
 
-        //cargarFondo(view, unBundle.getString("nombre"));
+        //cargarFondo(view, artista.getName());
 
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), listAMostrar, new Listener());
         recyclerView.setAdapter(recyclerViewAdapter);
@@ -74,6 +74,18 @@ public class FragmentRecyclerView extends Fragment{
         switch (artista) {
             case "Andy":
                 frameLayout.setBackgroundResource(R.drawable.andy);
+                break;
+            case "Michelangelo":
+                frameLayout.setBackgroundResource(R.drawable.michelangelo);
+                break;
+            case "keith Haring":
+                frameLayout.setBackgroundResource(R.drawable.haring);
+                break;
+            case "Miro":
+                frameLayout.setBackgroundResource(R.drawable.miro);
+                break;
+            case "Polac (El Polaco)":
+                frameLayout.setBackgroundResource(R.drawable.polaco);
                 break;
         }
     }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.dh_mob_tv.entregablefirebase.R;
+import com.example.dh_mob_tv.entregablefirebase.controller.ArtistController;
 import com.example.dh_mob_tv.entregablefirebase.model.Paint;
 
 /**
@@ -34,8 +35,10 @@ public class ObraCompletaFragment extends Fragment {
         ImageView imageViewObraCompleta = (ImageView) viewADevolver.findViewById(R.id.image_fragment_pantallaCompleta);
         TextView textViewObraCompleta = (TextView) viewADevolver.findViewById(R.id.titulo_fragment_pantallaCompleta);
 
-        //Glide.with(this).load()
+        ArtistController artistController = new ArtistController();
+        artistController.setImageFirebaseController(paint.getImage(), imageViewObraCompleta, getContext());
 
+        textViewObraCompleta.setText(paint.getName());
 
         return viewADevolver;
     }

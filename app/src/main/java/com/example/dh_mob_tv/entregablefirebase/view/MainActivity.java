@@ -28,4 +28,11 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragment_main,unFragment);
         fragmentTransaction.commit();
     }
+
+    @Override
+    public void onBackPressed() {
+
+        FragmentViewPagerHome homeFragment = new FragmentViewPagerHome();
+        cargadorDeFragments(homeFragment);
+    }
 }
