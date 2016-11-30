@@ -17,6 +17,7 @@ import com.example.dh_mob_tv.entregablefirebase.model.Paint;
 import com.example.dh_mob_tv.entregablefirebase.model.RecyclerViewAdapter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,7 +35,8 @@ public class FragmentRecyclerView extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
         Bundle unBundle = getArguments();
-        listAMostrar = (List<Paint>) unBundle.getSerializable("pinturas");
+        listAMostrar = new ArrayList<>();
+        listAMostrar.addAll((List<Paint>) unBundle.getSerializable("pinturas"));
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_main);
 
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), listAMostrar, new Listener());
@@ -43,6 +45,7 @@ public class FragmentRecyclerView extends Fragment{
         recyclerView.setLayoutManager(gridLayoutManager);
 
         recyclerView.setHasFixedSize(true);
+        recyclerViewAdapter.notifyDataSetChanged();
 
         return view;
     }

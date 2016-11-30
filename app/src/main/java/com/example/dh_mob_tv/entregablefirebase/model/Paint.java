@@ -1,9 +1,11 @@
 package com.example.dh_mob_tv.entregablefirebase.model;
 
+import java.io.Serializable;
+
 /**
  * Created by dh-mob-tv on 21/11/16.
  */
-public class Paint {
+public class Paint implements Serializable {
 
     private String image;
     private String name;

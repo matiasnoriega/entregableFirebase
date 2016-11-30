@@ -43,7 +43,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.layout_celda_pintura, parent, false);
         view.setOnClickListener(listener);
-        return new PinturaViewHolder(view);
+        return new PinturaViewHolder(view, context);
     }
 
     @Override
@@ -62,9 +62,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
     public static class PinturaViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageViewHolder;
+        Context miContext;
 
-        public PinturaViewHolder(View itemView) {
+        public PinturaViewHolder(View itemView, Context context) {
             super(itemView);
+            miContext = context;
             this.imageViewHolder = (ImageView) itemView.findViewById(R.id.imageViewCelda);
         }
 
@@ -76,7 +78,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
             storageRef.child(paint.getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    Glide.with(itemView.getContext()).load(uri).into(imageViewHolder);
+                    //Glide.with(miContext).load(uri).into(imageViewHolder);
+                    Glide.with(miContext).load(uri).placeholder(android.R.drawable.alert_dark_frame).error(android.R.drawable.bottom_bar).into(imageViewHolder);
                 }
             });
         }
