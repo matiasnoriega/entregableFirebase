@@ -29,6 +29,7 @@ public class FragmentRecyclerView extends Fragment{
 
     private List<Paint> listAMostrar;
     private RecyclerView recyclerView;
+    private Artist artista;
 
 
     @Nullable
@@ -37,8 +38,10 @@ public class FragmentRecyclerView extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
         Bundle unBundle = getArguments();
-        listAMostrar = new ArrayList<>();
-        listAMostrar.addAll((List<Paint>) unBundle.getSerializable("pinturas"));
+
+        this.artista = (Artist) unBundle.getSerializable("artista");
+
+        listAMostrar = artista.getPaints();
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_main);
 
         //cargarFondo(view, unBundle.getString("nombre"));
@@ -58,8 +61,7 @@ public class FragmentRecyclerView extends Fragment{
 
         FragmentRecyclerView recyclerViewFragment = new FragmentRecyclerView();
         Bundle bundle = new Bundle();
-        bundle.putString("nombre", artista.getName());
-        bundle.putSerializable("pinturas", (Serializable) artista.getPaints());
+        bundle.putSerializable("artista", (Serializable) artista);
         recyclerViewFragment.setArguments(bundle);
 
         return recyclerViewFragment;
@@ -84,6 +86,11 @@ public class FragmentRecyclerView extends Fragment{
         public void onClick(View view) {
             ObraCompletaFragment obraCompletaFragment = new ObraCompletaFragment();
 
+            Bundle bundle = new Bundle();
+
+            bundle.putSerializable("pintura", (Serializable) listAMostrar.get(recyclerView.getChildAdapterPosition(view)));
+
+            obraCompletaFragment.setArguments(bundle);
             android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
             android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_main, obraCompletaFragment);

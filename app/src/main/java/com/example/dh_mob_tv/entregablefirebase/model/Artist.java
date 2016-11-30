@@ -1,11 +1,12 @@
 package com.example.dh_mob_tv.entregablefirebase.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by dh-mob-tv on 21/11/16.
  */
-public class Artist {
+public class Artist implements Serializable {
 
     private String name;
     private List<Paint> paints;

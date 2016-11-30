@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.dh_mob_tv.entregablefirebase.R;
+import com.example.dh_mob_tv.entregablefirebase.controller.ArtistController;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * Created by dh-mob-tv on 16/11/16.
  */
-public class RecyclerViewAdapter extends RecyclerView.Adapter {
+public class RecyclerViewAdapter extends RecyclerView.Adapter implements View.OnClickListener{
 
     Context context;
     List<Paint> listaDePaints;
@@ -59,6 +60,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         return listaDePaints.size();
     }
 
+    @Override
+    public void onClick(View view) {
+
+        listener.onClick(view);
+    }
+
     public static class PinturaViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageViewHolder;
@@ -72,16 +79,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
 
         public void cargarPintura(Paint paint) {
 
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();
+            ArtistController artistController = new ArtistController();
+            artistController.setImageFirebaseController(paint.getImage(), imageViewHolder, miContext);
 
-            storageRef.child(paint.getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    //Glide.with(miContext).load(uri).into(imageViewHolder);
-                    Glide.with(miContext).load(uri).placeholder(R.drawable.momma).into(imageViewHolder);
-                }
-            });
         }
     }
 
