@@ -7,15 +7,16 @@ import android.view.View;
 import com.example.dh_mob_tv.entregablefirebase.R;
 
 import com.example.dh_mob_tv.entregablefirebase.model.RecyclerViewAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerViewObras;
-    private RecyclerViewAdapter recyclerViewAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         FragmentViewPagerHome homeFragment = new FragmentViewPagerHome();
         cargadorDeFragments(homeFragment);
@@ -35,4 +36,5 @@ public class MainActivity extends AppCompatActivity {
         FragmentViewPagerHome homeFragment = new FragmentViewPagerHome();
         cargadorDeFragments(homeFragment);
     }
+
 }
