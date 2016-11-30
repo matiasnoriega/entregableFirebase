@@ -79,7 +79,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onSuccess(Uri uri) {
                     //Glide.with(miContext).load(uri).into(imageViewHolder);
-                    Glide.with(miContext).load(uri).placeholder(android.R.drawable.alert_dark_frame).error(android.R.drawable.bottom_bar).into(imageViewHolder);
+                    Glide.with(miContext).load(uri).placeholder(R.drawable.momma).into(imageViewHolder);
                 }
             });
         }

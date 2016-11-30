@@ -10,7 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.dh_mob_tv.entregablefirebase.R;
 import com.example.dh_mob_tv.entregablefirebase.model.Artist;
 import com.example.dh_mob_tv.entregablefirebase.model.Paint;
@@ -39,9 +41,11 @@ public class FragmentRecyclerView extends Fragment{
         listAMostrar.addAll((List<Paint>) unBundle.getSerializable("pinturas"));
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_main);
 
+        //cargarFondo(view, unBundle.getString("nombre"));
+
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), listAMostrar, new Listener());
         recyclerView.setAdapter(recyclerViewAdapter);
-        LinearLayoutManager gridLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         recyclerView.setHasFixedSize(true);
@@ -54,12 +58,24 @@ public class FragmentRecyclerView extends Fragment{
 
         FragmentRecyclerView recyclerViewFragment = new FragmentRecyclerView();
         Bundle bundle = new Bundle();
+        bundle.putString("nombre", artista.getName());
         bundle.putSerializable("pinturas", (Serializable) artista.getPaints());
         recyclerViewFragment.setArguments(bundle);
 
         return recyclerViewFragment;
 
     }
+
+    public void cargarFondo(View view, String artista) {
+        FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.recyclerView);
+
+        switch (artista) {
+            case "Andy":
+                frameLayout.setBackgroundResource(R.drawable.andy);
+                break;
+        }
+    }
+
 
     public class Listener implements View.OnClickListener{
 

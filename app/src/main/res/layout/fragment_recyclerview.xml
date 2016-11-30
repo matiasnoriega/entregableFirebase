@@ -2,7 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dh_mob_tv.entregablefirebase.view.FragmentRecyclerView">
+    tools:context="com.example.dh_mob_tv.entregablefirebase.view.FragmentRecyclerView"
+    android:id="@+id/recyclerView"
+    >
 
 
     <android.support.v7.widget.RecyclerView
