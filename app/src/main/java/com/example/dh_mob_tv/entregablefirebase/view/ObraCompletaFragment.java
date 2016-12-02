@@ -5,11 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.dh_mob_tv.entregablefirebase.R;
 import com.example.dh_mob_tv.entregablefirebase.controller.ArtistController;
@@ -36,24 +37,38 @@ public class ObraCompletaFragment extends Fragment {
 
         Bundle bundle = getArguments();
         paint = (Paint) bundle.getSerializable("pintura");
+        setHasOptionsMenu(true);
+        android.widget.Toolbar myToolbar = (android.widget.Toolbar) viewADevolver.findViewById(R.id.my_toolbar);
+        myToolbar.setTitle(paint.getName());
+        myToolbar.inflateMenu(R.menu.menutoolbar);
+        getActivity().setActionBar(myToolbar);
+
 
         ImageView imageViewObraCompleta = (ImageView) viewADevolver.findViewById(R.id.image_fragment_pantallaCompleta);
-        TextView textViewObraCompleta = (TextView) viewADevolver.findViewById(R.id.titulo_fragment_pantallaCompleta);
 
-        Button buttonTweet = (Button) viewADevolver.findViewById(R.id.buttonTweet);
-        buttonTweet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tweet(view);
-            }
-        });
 
         ArtistController artistController = new ArtistController();
         artistController.setImageFirebaseController(paint.getImage(), imageViewObraCompleta, getContext());
 
-        textViewObraCompleta.setText(paint.getName());
 
         return viewADevolver;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menutoolbar, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.fotoButton:
+                return true;
+            case R.id.tweetButton:
+                tweet(getView());
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void tweet(final View view){
