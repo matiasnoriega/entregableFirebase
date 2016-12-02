@@ -1,13 +1,10 @@
 package com.example.dh_mob_tv.entregablefirebase.view;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import com.example.dh_mob_tv.entregablefirebase.R;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
-import com.example.dh_mob_tv.entregablefirebase.model.RecyclerViewAdapter;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.dh_mob_tv.entregablefirebase.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,9 +14,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         FragmentViewPagerHome homeFragment = new FragmentViewPagerHome();
         cargadorDeFragments(homeFragment);
+
 
      }
 
@@ -36,5 +36,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentViewPagerHome homeFragment = new FragmentViewPagerHome();
         cargadorDeFragments(homeFragment);
     }
+
+
 
 }
