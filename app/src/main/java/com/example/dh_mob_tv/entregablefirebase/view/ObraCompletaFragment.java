@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.dh_mob_tv.entregablefirebase.R;
 import com.example.dh_mob_tv.entregablefirebase.controller.ArtistController;
@@ -18,6 +19,8 @@ import com.example.dh_mob_tv.entregablefirebase.model.Paint;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 /**
@@ -38,8 +41,10 @@ public class ObraCompletaFragment extends Fragment {
         Bundle bundle = getArguments();
         paint = (Paint) bundle.getSerializable("pintura");
         setHasOptionsMenu(true);
+
+        String titulo = paint.getName() + " de " + bundle.getString("autor");
         android.widget.Toolbar myToolbar = (android.widget.Toolbar) viewADevolver.findViewById(R.id.my_toolbar);
-        myToolbar.setTitle(paint.getName());
+        myToolbar.setTitle(titulo);
         myToolbar.inflateMenu(R.menu.menutoolbar);
         getActivity().setActionBar(myToolbar);
 
@@ -73,19 +78,26 @@ public class ObraCompletaFragment extends Fragment {
 
     public void tweet(final View view){
 
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
+        TwitterSession session = Twitter.getSessionManager().getActiveSession();
 
-        storageRef.child(paint.getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                String msg = "Estoy en el MoMMA mirando " + paint.getName() + "\n #arte #momma" + "\n"+ uri.toString();
+        if(session!=null){
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
 
-                TweetComposer.Builder builder = new TweetComposer.Builder(getActivity())
-                        .text(msg);
-                builder.show();
-            }
-        });
+            storageRef.child(paint.getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    String msg = "Estoy en el MoMMA mirando " + paint.getName() + "\n #arte #momma" + "\n"+ uri.toString();
+
+                    TweetComposer.Builder builder = new TweetComposer.Builder(getActivity())
+                            .text(msg);
+                    builder.show();
+                }
+            });
+        }else{
+            Toast.makeText(view.getContext(), "Tenes que estar logueado en Twitter", Toast.LENGTH_SHORT).show();
+        }
+
 
 
     }

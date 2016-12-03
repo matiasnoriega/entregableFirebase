@@ -4,22 +4,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutCompat;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.bumptech.glide.Glide;
 import com.example.dh_mob_tv.entregablefirebase.R;
 import com.example.dh_mob_tv.entregablefirebase.model.Artist;
 import com.example.dh_mob_tv.entregablefirebase.model.Paint;
 import com.example.dh_mob_tv.entregablefirebase.model.RecyclerViewAdapter;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -100,6 +96,7 @@ public class FragmentRecyclerView extends Fragment{
 
             Bundle bundle = new Bundle();
 
+            bundle.putString("autor", artista.getName());
             bundle.putSerializable("pintura", (Serializable) listAMostrar.get(recyclerView.getChildAdapterPosition(view)));
 
             obraCompletaFragment.setArguments(bundle);
