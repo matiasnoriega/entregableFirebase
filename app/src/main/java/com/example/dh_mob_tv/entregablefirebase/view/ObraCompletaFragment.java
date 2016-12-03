@@ -78,7 +78,7 @@ public class ObraCompletaFragment extends Fragment {
 
     public void tweet(final View view){
 
-        TwitterSession session = Twitter.getSessionManager().getActiveSession();
+        TwitterSession session = Twitter.getInstance().core.getSessionManager().getActiveSession();
 
         if(session!=null){
             FirebaseStorage storage = FirebaseStorage.getInstance();
