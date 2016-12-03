@@ -1,5 +1,8 @@
 package com.example.dh_mob_tv.entregablefirebase.view;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,6 +25,11 @@ import com.google.firebase.storage.StorageReference;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
+
+import java.io.File;
+
+import pl.aprilapps.easyphotopicker.DefaultCallback;
+import pl.aprilapps.easyphotopicker.EasyImage;
 
 /**
  * Created by dh-mob-tv on 21/11/16.
@@ -68,12 +76,36 @@ public class ObraCompletaFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.fotoButton:
+                EasyImage.openCamera(this, 666);
                 return true;
             case R.id.tweetButton:
                 tweet(getView());
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new DefaultCallback() {
+            @Override
+            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                //Some error handling
+                Toast.makeText(getActivity(), "Fallo! La imagen no se pudo subir :(", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
+                Toast.makeText(getActivity(), "Exito!", Toast.LENGTH_SHORT).show();
+
+                Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+
+                ImageView imageView = (ImageView) getView().findViewById(R.id.imageViewFotoResultante);
+                imageView.setImageBitmap(bitmap);
+            }
+        });
     }
 
     public void tweet(final View view){

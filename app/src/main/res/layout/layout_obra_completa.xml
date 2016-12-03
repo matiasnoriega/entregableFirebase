@@ -5,6 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
     <include android:id="@+id/appbarmain" layout="@layout/appbar_layout"/>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageViewFotoResultante"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

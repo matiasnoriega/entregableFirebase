@@ -7,6 +7,7 @@ import com.example.dh_mob_tv.entregablefirebase.DAO.ArtistDAO;
 import com.example.dh_mob_tv.entregablefirebase.model.Artist;
 import com.example.dh_mob_tv.entregablefirebase.util.ResultListener;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -28,6 +29,12 @@ public class ArtistController {
 
     }
 
+    public void subirImagenFireBaseController(ImageView imageView, Context context) throws IOException{
+
+        ArtistDAO artistDAO = new ArtistDAO();
+        artistDAO.subirImagenFirebaseDAO(imageView, context);
+
+    }
     public void setImageFirebaseController(String path, ImageView imageView, Context context) {
 
         ArtistDAO artistDAO = new ArtistDAO();
