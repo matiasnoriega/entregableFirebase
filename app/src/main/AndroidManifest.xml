@@ -33,8 +33,6 @@
             android:name="io.fabric.ApiKey"
             android:value="b2a1728f4e061769ce4d9b5128729760b16612c8" />
 
-        <activity android:name=".view.SubirFotoActivity"
-            android:parentActivityName=".view.MainActivity"></activity>
     </application>
 
 </manifest>
